@@ -1,14 +1,15 @@
 import { projects } from "@/lib/projects";
-import Sidebar from "@/components/Sidebar";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 
 export function generateStaticParams() {
     return projects.map((p) => ({ slug: p.slug }));
 }
 
-export default function CaseStudy({ params }) {
-    const project = projects.find((p) => p.slug === params.slug);
+export default async function CaseStudy({ params }) {
+    const { slug } = await params;
+    const project = projects.find((p) => p.slug === slug);
     if (!project) notFound();
 
     return (
@@ -28,14 +29,40 @@ export default function CaseStudy({ params }) {
                 {project.title}
             </h1>
 
-            <div
-                className="rounded-[10px] overflow-hidden mb-10"
-                style={{ background: "linear-gradient(160deg,#100E15,#1C1826)" }}
-            >
-                <div className="min-h-[280px] flex items-center justify-center font-mono text-[12px] text-[#6b6480]">
-                    [ {project.title} screenshot ]
-                </div>
+            <div className="relative w-full aspect-[16/10] rounded-[10px] overflow-hidden mb-8 bg-ink">
+                <Image
+                    src={project.screenshot}
+                    alt={`${project.title} interface`}
+                    fill
+                    className="object-cover object-top"
+                />
             </div>
+
+            <div className="flex flex-wrap gap-3 mb-10">
+                {project.liveUrl && (
+
+                    <a href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        data-cursor-hover
+                        className="bg-ink text-paper px-5 py-3 rounded-full text-[13px] font-bold font-mono"
+                    >
+                        live demo ↗
+                    </a>
+                )}
+                {project.githubUrl && (
+
+                    <a href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        data-cursor-hover
+                        className="border border-ink px-5 py-3 rounded-full text-[13px] font-bold font-mono hover:bg-ink hover:text-paper transition-colors"
+                    >
+                        view code
+                    </a>
+                )
+                }
+            </div >
 
             <div className="flex flex-wrap gap-2 mb-10">
                 {project.stack.map((tech) => (
@@ -48,12 +75,20 @@ export default function CaseStudy({ params }) {
                 ))}
             </div>
 
-            <div className="text-[15.5px] text-ink-soft leading-[1.75] flex flex-col gap-5 max-w-[640px]">
-                <p>{project.description}</p>
-                <p className="italic text-[14px]">
-                    Full case study write-up coming soon — the problem, the decisions, and what I&apos;d do differently.
-                </p>
+            <div className="flex flex-col gap-8 max-w-[640px]">
+                {project.problem && (
+                    <div>
+                        <p className="font-mono text-[11px] text-coral font-bold mb-2">THE PROBLEM</p>
+                        <p className="text-[15px] text-ink-soft leading-[1.75]">{project.problem}</p>
+                    </div>
+                )}
+                {project.fix && (
+                    <div>
+                        <p className="font-mono text-[11px] text-coral font-bold mb-2">WHAT I BUILT</p>
+                        <p className="text-[15px] text-ink-soft leading-[1.75]">{project.fix}</p>
+                    </div>
+                )}
             </div>
-        </div>
+        </div >
     );
 }

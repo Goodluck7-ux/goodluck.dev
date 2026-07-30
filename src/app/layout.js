@@ -23,8 +23,24 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata = {
-  title: "Goodluck — Full-Stack Developer",
-  description: "I build products, not tutorials.",
+  metadataBase: new URL("https://goodluck-portfolio.vercel.app"),
+  title: {
+    default: "Goodluck Michael — Full-Stack Developer",
+    template: "%s — Goodluck Michael",
+  },
+  description:
+    "Full-stack developer building real, production-shaped software with Next.js, MongoDB, and AI integrations — not tutorials.",
+  keywords: ["full-stack developer", "Next.js developer", "React developer", "freelance developer", "Nigeria"],
+  openGraph: {
+    title: "Goodluck Michael — Full-Stack Developer",
+    description: "I build products, not tutorials.",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Goodluck Michael — Full-Stack Developer",
+    description: "I build products, not tutorials.",
+  },
 };
 
 export default function RootLayout({ children }) {

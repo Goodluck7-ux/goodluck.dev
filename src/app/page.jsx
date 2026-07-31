@@ -264,6 +264,9 @@ export default function Home() {
                 </a>
               </MagneticButton>
             </div>
+            <p className="font-mono text-[11px] text-ink-soft mt-16 pt-6 border-t border-line">
+              © {new Date().getFullYear()} Goodluck Michael. Built with Next.js.
+            </p>
           </Reveal>
         </section>
       </main>

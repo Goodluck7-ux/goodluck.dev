@@ -15,6 +15,7 @@ const navItems = [
 export default function Sidebar() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [activeId, setActiveId] = useState("about");
+    const [photoOpen, setPhotoOpen] = useState(false);
 
     useEffect(() => {
         const sections = navItems
@@ -34,19 +35,34 @@ export default function Sidebar() {
         return () => observer.disconnect();
     }, []);
 
+    useEffect(() => {
+        if (!photoOpen) return;
+        const handleKey = (e) => {
+            if (e.key === "Escape") setPhotoOpen(false);
+        };
+        window.addEventListener("keydown", handleKey);
+        return () => window.removeEventListener("keydown", handleKey);
+    }, [photoOpen]);
+
     return (
         <>
             {/* Mobile top bar — everything below is inside ONE wrapper, hidden at md and up */}
             <div className="md:hidden sticky top-0 z-50 flex items-center justify-between px-5 py-4 border-b border-line bg-paper/90 backdrop-blur-sm">
                 <div className="flex items-center gap-2.5">
-                    <Image
-                        src="/profile.jpg"
-                        alt="Goodluck Michael"
-                        width={32}
-                        height={32}
-                        className="rounded-full object-cover border-2 border-ink"
-                        priority
-                    />
+                    <button
+                        onClick={() => setPhotoOpen(true)}
+                        aria-label="View full photo"
+                        className="rounded-full"
+                    >
+                        <Image
+                            src="/profile.jpg"
+                            alt="Goodluck Michael"
+                            width={32}
+                            height={32}
+                            className="rounded-full object-cover border-2 border-ink"
+                            priority
+                        />
+                    </button>
                     <span className="font-display text-[16px] font-bold tracking-tight">
                         Goodluck Michael O.
                     </span>
@@ -112,14 +128,21 @@ export default function Sidebar() {
             <aside className="hidden md:flex md:sticky md:top-0 md:h-screen border-r border-line px-9 py-14 flex-col justify-between">
                 <div>
                     <div className="flex items-start justify-between gap-3 mb-4">
-                        <Image
-                            src="/profile.jpg"
-                            alt="Goodluck Michael"
-                            width={56}
-                            height={56}
-                            className="rounded-full object-cover border-2 border-ink"
-                            priority
-                        />
+                        <button
+                            onClick={() => setPhotoOpen(true)}
+                            aria-label="View full photo"
+                            className="rounded-full"
+                            data-cursor-hover
+                        >
+                            <Image
+                                src="/profile.jpg"
+                                alt="Goodluck Michael"
+                                width={56}
+                                height={56}
+                                className="rounded-full object-cover border-2 border-ink hover:opacity-90 transition-opacity"
+                                priority
+                            />
+                        </button>
                         <ThemeToggle />
                     </div>
                     <p className="font-display text-[24px] font-bold tracking-tight mb-1.5">
@@ -173,6 +196,32 @@ export default function Sidebar() {
                     </a>
                 </div>
             </aside>
+            {photoOpen && (
+                <div
+                    onClick={() => setPhotoOpen(false)}
+                    className="fixed inset-0 z-[100] bg-ink/90 backdrop-blur-sm flex items-center justify-center px-6 animate-[fadeIn_0.2s_ease-out]"
+                >
+                    <button
+                        onClick={() => setPhotoOpen(false)}
+                        aria-label="Close"
+                        className="absolute top-6 right-6 w-10 h-10 rounded-full border border-paper/30 text-paper flex items-center justify-center text-[20px]"
+                    >
+                        ×
+                    </button>
+                    <div
+                        onClick={(e) => e.stopPropagation()}
+                        className="relative w-full max-w-[420px] aspect-square rounded-2xl overflow-hidden"
+                    >
+                        <Image
+                            src="/profile.jpg"
+                            alt="Goodluck Michael"
+                            fill
+                            sizes="420px"
+                            className="object-cover"
+                        />
+                    </div>
+                </div>
+            )}
         </>
     );
 }

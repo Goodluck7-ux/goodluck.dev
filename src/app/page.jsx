@@ -143,6 +143,7 @@ export default function Home() {
                         src={project.screenshot}
                         alt={`${project.title} interface`}
                         fill
+                        sizes="(max-width: 768px) 100vw, 640px"
                         className="object-cover object-top"
                       />
                     </div>

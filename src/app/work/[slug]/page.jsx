@@ -34,6 +34,7 @@ export default async function CaseStudy({ params }) {
                     src={project.screenshot}
                     alt={`${project.title} interface`}
                     fill
+                    sizes="(max-width: 860px) 100vw, 860px"
                     className="object-cover object-top"
                 />
             </div>

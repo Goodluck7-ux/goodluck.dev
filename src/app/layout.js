@@ -23,7 +23,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata = {
-  metadataBase: new URL("https://goodluck-portfolio.vercel.app"),
+  metadataBase: new URL("https://goodluck-dev.vercel.app"),
   title: {
     default: "Goodluck Michael — Full-Stack Developer",
     template: "%s — Goodluck Michael",

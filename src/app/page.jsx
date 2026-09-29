@@ -2,7 +2,6 @@ import Sidebar from "@/components/Sidebar";
 import Reveal from "@/components/Reveal";
 import TiltCard from "@/components/TiltCard";
 import MagneticButton from "@/components/MagneticButton";
-import TypingCode from "@/components/TypingCode";
 import { projects } from "@/lib/projects";
 import Image from "next/image";
 
@@ -16,7 +15,7 @@ const SERVICES = [
   },
   {
     title: "Custom Checkout & Payment Flows",
-    body: "Custom payment flows and receipt tracking for businesses standard tools like Stripe don't fully support.",
+    body: "Custom payment flows and receipt tracking for businesses that standard tools like Stripe don't fully support.",
     tools: "Custom Workflows · File Uploads · APIs",
   },
   {
@@ -55,8 +54,13 @@ export default function Home() {
 
             <div className="text-[15px] sm:text-[15.5px] text-ink-soft leading-[1.75] flex flex-col gap-4">
               <p>
-                A year into full-stack development, working mainly with Next.js, Node.js, MongoDB, and Tailwind — <span className="text-ink font-bold">five production-shaped projects in</span>, each one shipped and deployed, not demoed once and forgotten.
+                A year into full-stack development, working mainly with Next.js, Node.js, MongoDB, and Tailwind — <span className="text-ink font-bold">three production-shaped projects in</span>, each one shipped and deployed, not demoed once and forgotten.
               </p>
+            </div>
+
+            <div className="inline-flex items-center gap-2 mt-6 px-3 py-2 rounded-full border border-line bg-card text-[11px] font-mono text-ink-soft">
+              <span className="w-2 h-2 rounded-full bg-[#36A269] animate-pulse-dot" aria-hidden="true" />
+              Available for freelance projects and remote roles
             </div>
 
             <div className="flex flex-wrap gap-2 mt-5">
@@ -66,8 +70,6 @@ export default function Home() {
                 </span>
               ))}
             </div>
-
-            <TypingCode />
 
             <div className="flex flex-wrap gap-3 mt-7">
               <MagneticButton>
@@ -189,6 +191,16 @@ export default function Home() {
                       live demo ↗
                     </a>
                   )}
+                  {project.githubUrl && (
+                    <a href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-cursor-hover
+                      className="font-mono text-[13px] font-bold text-ink-soft hover:text-coral transition-colors"
+                    >
+                      view code ↗
+                    </a>
+                  )}
                 </div>
               </Reveal>
             ))}
@@ -241,6 +253,10 @@ export default function Home() {
             <h2 className="font-display text-[26px] sm:text-[32px] font-extrabold tracking-tight mb-4">
               Let&apos;s build something together.
             </h2>
+            <div className="flex items-center gap-2 mb-4 text-[11px] font-mono text-ink-soft">
+              <span className="w-2 h-2 rounded-full bg-[#36A269]" aria-hidden="true" />
+              Open to new conversations
+            </div>
             <p className="text-[15px] text-ink-soft leading-relaxed max-w-[460px] mb-7">
               I&apos;m currently looking for remote software developer roles, internships, and freelance projects. If you have an idea, an open role, or just want to chat, feel free to reach out.
             </p>

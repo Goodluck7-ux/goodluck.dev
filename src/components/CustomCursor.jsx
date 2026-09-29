@@ -12,7 +12,7 @@ export default function CustomCursor() {
         // cursor:none would just make the page unusable on mobile.
         const isTouch = window.matchMedia("(pointer: coarse)").matches;
         if (isTouch) return;
-        setEnabled(true);
+        const enableFrame = requestAnimationFrame(() => setEnabled(true));
 
         let mx = 0, my = 0, rx = 0, ry = 0;
         let raf;
@@ -60,6 +60,7 @@ export default function CustomCursor() {
         });
 
         return () => {
+            cancelAnimationFrame(enableFrame);
             window.removeEventListener("mousemove", handleMove);
             cancelAnimationFrame(raf);
             interactive.forEach((el) => {
